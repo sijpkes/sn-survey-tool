@@ -6,28 +6,44 @@
   <title>untitled|}</title>
   <style>
 	#controls {
-		float: left;
-		width: 300px;
 		border: solid thin black;
 		margin: 5px;
 		padding: 1em;
 	}
 	iframe {
-		min-width: 800px;
+		width: 100%;
 		height: 600px;
+	}
+	#frame-content {
+		border: thin solid black;
+	}
+	#controls ul {
+		list-style: none;
 	}
   </style>
 </head>
 <body>
 	<h1>Network Survey Tool</h1>
-
+	<div id = 'controls'>
+		<p>Please place a tick next to your name in the list.</p>
+		<ul>
+			<li><label>Mr Potato Head</label></li>
+			<li><label>Gumby</label></li>
+			<li><label>Noddy</label></li>
+			<li><label>Postman Pat</label></li>
+			<li><label>Duckula</label></li>
+		</ul>
+	</div>
 	<div id='frame-content'>
 		
 	</div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src='js/core.js'></script>
-	<script>
-		$("#frame-content").addSurvey({ urls: ["ps_survey/form1.html", "ps_survey/form2.html"]});
+	<script>	
+		$("body").addSurvey(
+			{ 
+			urls: ["ps_survey/form1.html", "ps_survey/form2.html"]
+		});
 	</script>
 </body>
 </html>
