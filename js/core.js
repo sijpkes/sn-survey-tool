@@ -28,7 +28,15 @@
 		
 		var guid = gen_id(); 
 		
-		var addFrame = function() {
+		var addFrame = function(isLast) {
+		   if(typeof isLast === 'undefined') {
+		       isLast = false;
+		   } 
+		   if(isLast && n === 0) {
+		       $("p", list).first().html("Survey complete.  Thank you for your time!<br>You can now navigate away fro");
+		       return false;
+		   } 
+		    
 		   if(typeof params.frames[n].message === 'undefined') {
 		      params.frames[n].message = "";    
 		   }
@@ -45,7 +53,7 @@
                         $("iframe", container).first().hide();
                         lockFrame = false;
                         
-                        if(n >= params.frames.length) {
+                        if(n > params.frames.length) {
                                 n = 0;
                         }
                         n = n + 1;
@@ -64,7 +72,7 @@
             }
             if(!params.frames[n].userFocused) {
                 var nextName = $("label.waiting", list).first();
-                $(nextName).removeClass('waiting').addClass('current');
+                $(nextName).removeClass('waiting');
                 var screen_name = $(nextName).text();
                 
                 $(".ss-form-entry:contains('%screen_name%'), .ss-form-desc:contains('%screen_name%')", contents).each(function() {
@@ -73,18 +81,22 @@
                 });
             }
             if(params.frames[n].message.length > 0) {
-                $("p", list).first().html(params.frames[n].messsage);
+                $("p", list).first().html(params.frames[n].message);
             }
             if(params.frames[n].skipButton) {
                if($("#skip", list).length === 0) { 
                     $(list).append("<button id='skip'>Skip this person</button>");
                     $(list).on('click', '#skip', function() {
+                            var isLast = false;
+                            $("label.waiting", list).each(function() {
+                                isLast = this === $("label").last().get(0);
+                            });
                             $("label.waiting", list).removeClass('waiting').addClass('skipped');
-                            if(n >= params.frames.length) {
+                            if(n > params.frames.length) {
                                 n = 0;
                             }
                             n = n + 1;
-                            addFrame();
+                            addFrame(isLast);
                     });
                }
             }

@@ -45,11 +45,17 @@
 			frames: [{url: "ps_survey/form1.html",
 						anonymous: false, userFocused: true} , 
 					 {url: "ps_survey/form2.html",
-					  message: "Each of the members of the project will appear in turn below\
-					  			if you did not interact with them simply press this skip button.", 
+					  message: "Each of the members of the project will appear in turn below.\
+					  			If you did not interact with this person press the skip button.\
+					  			<br><br>\
+					  			This section asks about how you communicated with the individual\
+					  			and which technologies you used to communicate.", 
 					  			anonymous: false, userFocused: false, skipButton: true},
 					 {url: "ps_survey/form3.html",
-					  message: "", anonymous: true, userFocused: false, skipButton: true	
+					  message: "Unlike the previous two forms, this form is anonymous.<br><br>\
+					  This means that your rating of other\'s expertise is not recorded against your name,\
+					   but is instead used to give an overall picture of the perceived expertise of the individual.", 
+					   anonymous: true, userFocused: false, skipButton: true	
 					 } 
 			]
 		});
