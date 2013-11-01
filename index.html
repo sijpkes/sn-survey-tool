@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>untitled|}</title>
+		<style>
+			iframe {
+				height: 600px;
+				width: 100%;
+			}
+			#frame-content {
+				border: thin solid black;
+				width: 650px;
+				float: left
+				/*margin: 0 auto;*/
+			}
+			#controls {
+				width: 630px;
+				min-height: 400px;
+				float: left;
+				border: solid thin black;
+				padding: 10px;
+				margin-left: 330px;
+						font-size: 12px;
+						font-family: Arial, Helvetica, sans-serif;
+			}
+			#controls ul {
+				list-style: none;
+		
+			}
+			#contacts {
+  border: 3px solid #F5AF00;
+  border-radius: 10px 10px 10px 10px;
+  display: block;
+  float: left;
+  font-size: 12px;
+  margin: 7px 15px 0 3px;
+  padding: 5px;
+  width: 247px;
+}
+		</style>
+	</head>
+	<body>
+		<div id = 'controls'>
+
+	<h1 style="float:left">Social Network Survey</h1>
+			<p>
+			<img src="img/sydlogo.png" style="float: right">
+			<img src="img/newlogo.png" style="float: right">
+			</p>
+			<div id="contacts">
+				<strong>PETER GOODYEAR</strong> | Professor of Education
+				<br>
+				Australian Research Council Laureate Fellow &amp;
+				<br>
+				Senior Fellow, Australian Learning &amp; Teaching Council
+				<br>
+				CoCo | Faculty of Education and Social Work
+				<br>
+				THE UNIVERSITY OF SYDNEY
+				<br>
+				T +61 2 9351 4708
+				<br>
+				E <a href="mailto:peter.goodyear@sydney.edu.au">peter.goodyear@sydney.edu.au </a>
+				<br><br>
+				<strong>PAUL SIJPKES</strong> | Masters Candidate
+				<br>
+				CoCo Research Centre
+				<br>
+				The University of Sydney
+				<br><br>
+				Centre for Teaching and Learning
+				<br>
+				Academic &amp; Global Relations Division
+				<br>
+				The University of Newcastle
+				<br>
+				T +61 2 49216671
+				<br>
+				E <a href="mailto:paul.sijpkes@newcastle.edu.au">paul.sijpkes@newcastle.edu.au</a>
+			</div>
+
+			<br><br><br><br><br><br><p>
+				This survey is intended to assess the skills and tacit or job knowledge at work in the OTCA project team and to develop a visual representation of the team in the form of a social network diagram.
+				This survey will firstly, ask you to provide some demographic information, it will then ask you about your means and frequency of communication with each of the other members of the project team.
+			</p>
+
+			<p>
+				The final section of the survey asks you to anonymously rate each team member's expertise in particular areas.
+				This survey is completely anonymous and secured.  No information other than what you have entered into this survey will be conveyed to the researcher.
+			</p>
+			
+			<br><br><br><br><h3>Instructions</h3>
+			<ol>
+				<li>
+					Complete the demographic section of the survey then click 'Submit' this will take you to the social network section of the survey.
+				</li>
+				<br>
+				<li>
+					Each of the members of the project will appear in turn. For the first screen, fill in the communication you had with the person then press 'Submit'
+				</li>
+				<br>
+				<li>
+					For the second screen fill in your expertise rating of the person click 'Submit' when you are finished. (Your answer in this section is anonymous, there is no way to link your expertise answer to your identity in the system)
+				</li>
+				<br>
+				<li>
+					If you did not interact with the person click the 'Skip this person' button.
+				</li>
+				<br>
+				<li>
+					You will be returned to step 3 of the survey, which will ask you about the next person in the list.  Repeat answering the questions for each team member until the survey is complete.
+				</li>
+			</ol>
+			<!-- this has been automated with url uids -->
+			<ul style='display:none'>
+				<li>
+					<label>Test User 1</label>
+				</li>
+				<li>
+					<label id='jkfjoiooas848884758'>Test User 2</label>
+				</li>
+				<li>
+					<label>Test User 3</label>
+				</li>
+				<li>
+					<label>Test User 4</label>
+				</li>
+				<li>
+					<label>Test User 5</label>
+				</li>
+			</ul>
+		</div>
+		<div id='frame-content' style='display: none'>
+
+		</div>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src='js/core.js'></script>
+		<script>
+$("body").addSurvey(
+{
+frames: [{url: "ps_survey/form1.html",
+anonymous: false, userFocused: true} ,
+{url: "ps_survey/form2.html",
+message: "This section asks about how you communicated with the individual\
+and which technologies you used to communicate.\
+<br><br>\
+Each of the members of the project will appear in turn below.\
+If you did not interact with this person press the skip button.",
+anonymous: false, userFocused: false, skipButton: true,
+
+keyForm: true /* return to this form after each response */},
+{url: "ps_survey/form3.html",
+message: "Unlike the previous two forms, this form is anonymous.<br><br>\
+This means that your rating of other\'s expertise is not recorded against your name,\
+but is instead used to give an overall picture of the perceived expertise of the individual.",
+anonymous: true, userFocused: false, skipButton: false
+}
+]
+});
+		</script>
+	</body>
+</html>
