@@ -32,8 +32,11 @@
                $('.subError', list).remove();
                $(container).hide(100).stop().remove();
                $(list).animate({ "margin-left": 330 }, 500);
+               /*
+                * Check if any forms are still waiting to submit...
+                */
                if(validateWaiting) {
-                 // $('#skip', list).remove();
+                 
                   $("p, ol, #skip, h1, h3", list).remove();
                   $(list).append("<h1 style='margin-left: 3em'>Survey complete. Thank you for your time!</h1>");
                    console.log("Forms submitted: " + subs);
@@ -67,6 +70,9 @@
 		if(typeof params.guidSearchTerm === 'undefined') {
 		    params.guidSearchTerm = "%for_script_use%";   
 		}
+		if(typeof params.nameSearchTerm === 'undefined') {
+            params.nameSearchTerm = "%screen_name%";   
+        }
 		console.log(params);
 		
 		var addFrame = function() { 
@@ -87,6 +93,9 @@
 		   if(typeof params.frames[n].anonymous === 'undefined') {
               params.frames[n].anonymous = true;    
            }
+            if(typeof params.frames[n].weighting === 'undefined') {
+                params.frames[n].weighting = false;  
+            }
 		   
 		    $(container).prepend(iframe);
 		    currentFrame =  $("iframe", container).first();
@@ -109,11 +118,20 @@
             
             var contents = $("iframe", container).first().contents();
             var uid_store = $(".ss-q-title:contains('"+params.guidSearchTerm+"')", contents);
-            
+            var name_store = $(".ss-q-title:contains('"+params.nameSearchTerm+"')", contents);
+            /* this determines whether the form is about node weighting rather than creating edges in the SN */
+            if(params.frames[n].weighting) {
+                
+            }
+            /* is the form anonymous?  i.e. the record has no identity associated with it in google drive */
             if(!params.frames[n].anonymous) {
                 var input = $(uid_store).parent().parent().find("input");
                 $(input).val(guid);
             }
+            /* is this form user focused? i.e. the form asks questions about the current user, not about others
+             * in the network.  This makes this a node weighting tool as well, for the user's node 
+             * and does not add edges to the SN
+             * */
             if(!params.frames[n].userFocused) {
                 var nextName = $("label.waiting", list).first();
                 if(n == params.frames.length-1) {
@@ -121,17 +139,24 @@
                 }
                 var screen_name = $(nextName).text();
                 
+                var input = $(name_store).parent().parent().find("input");
+                $(input).val(screen_name);
+                
                 $(".ss-form-title:contains('%screen_name%'),\
-                    .ss-form-entry:contains('%screen_name%'),\
                         .ss-form-desc:contains('%screen_name%')", contents).each(function() {
                        var myContents = $(this).html();
                        $(this).html(myContents.replace('%screen_name%', screen_name)); 
                 });
             }
+            /* this message is added to the control element this script is attached to
+             */
             if(params.frames[n].message.length > 0) {
                 $("p, ol, #skip, h3, #contacts", list).remove();
                 $(list).append("<p>"+params.frames[n].message+"</p>");
             }
+            /*
+             * add a skip button for this form?
+             */
             if(params.frames[n].skipButton) {
                if($("#skip", list).length === 0) { 
                     $(list).append("<button id='skip' style='float: right'>Skip this person</button>");
@@ -146,6 +171,7 @@
             console.log(params);
             
             $(uid_store).parent().parent().hide();
+            $(name_store).parent().parent().hide();
             }); // end frame load handler
 		};
 		
